@@ -1,9 +1,8 @@
-CC = gcc
-CFLAGS = -Wall -Wextra -Werror -std=c11
-TFLAGS = -lcheck -lsubunit -lm
-GFLAGS = -fprofile-arcs -ftest-coverage
-LIB_NAME = s21_matrix.a
-LIB_SRC = $(wildcard *.c)
+CC = g++
+CFLAGS = -Wall -Wextra -Werror -std=c++17
+TFLAGS = -lgtest
+LIB_NAME = s21_matrix_oop.a
+LIB_SRC = $(wildcard *.cpp)
 LIB_OBJ = $(LIB_SRC:.c=.o)
 TEST_SRC = $(wildcard ./tests/*.c)
 TEST_GCDA = $(LIB_SRC:.c=.gcda)
@@ -16,13 +15,6 @@ test: $(TEST_OBJ) $(LIB_NAME)
 	@rm -f $(TEST_OBJ)
 	@./test
 	@cat pics/keyboard_cat.txt
-
-gcov_report: clean add_coverage $(LIB_OBJ) $(LIB_NAME) 
-	@$(CC) $(CFLAGS) -o gcov_r $(TEST_SRC) -L. -l:$(LIB_NAME) $(TFLAGS)
-	@mkdir coverage_report
-	@./gcov_r
-	@python3 -m gcovr -r . --html --html-details -o coverage_report/index.html --exclude test
-	@open coverage_report/index.html
 
 %.o: %.c
 	@$(CC) $(CFLAGS) -c $< -o $@
