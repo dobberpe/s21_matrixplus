@@ -12,7 +12,7 @@ all: $(LIB_NAME)
 test: $(TEST_OBJ) $(LIB_NAME)
 	@$(CC) $(CFLAGS) $(TEST_OBJ) -o test -L. -l:$(LIB_NAME) $(TFLAGS)
 	@rm -f $(TEST_OBJ)
-	@./test
+	@#./test
 	@cat pics/keyboard_cat.txt
 
 %.o: %.cpp
@@ -26,8 +26,8 @@ $(LIB_NAME): $(LIB_OBJ)
 
 style_check:
 	@cp ../materials/linters/.clang-format .
-	@clang-format -n *.c *.h tests/*
-	@#cppcheck --enable=all --suppress=missingIncludeSystem *.c *.h tests/*
+	@clang-format -n *.cpp *.h tests/*
+	@#cppcheck --enable=all --suppress=missingIncludeSystem *.cpp *.h tests/*
 
 leak_check:
 	@valgrind --tool=memcheck --leak-check=yes ./test
