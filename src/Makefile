@@ -1,12 +1,11 @@
 CC = g++
 CFLAGS = -Wall -Wextra -Werror -std=c++17
-TFLAGS = -lgtest
+TFLAGS = -lgtest -lgtest_main
 LIB_NAME = s21_matrix_oop.a
 LIB_SRC = $(wildcard *.cpp)
-LIB_OBJ = $(LIB_SRC:.c=.o)
-TEST_SRC = $(wildcard ./tests/*.c)
-TEST_GCDA = $(LIB_SRC:.c=.gcda)
-TEST_OBJ = $(TEST_SRC:.c=.o)
+LIB_OBJ = $(LIB_SRC:.cpp=.o)
+TEST_SRC = $(wildcard ./tests/*.cpp)
+TEST_OBJ = $(TEST_SRC:.cpp=.o)
 
 all: $(LIB_NAME)
 
@@ -16,7 +15,7 @@ test: $(TEST_OBJ) $(LIB_NAME)
 	@./test
 	@cat pics/keyboard_cat.txt
 
-%.o: %.c
+%.o: %.cpp
 	@$(CC) $(CFLAGS) -c $< -o $@
 
 $(LIB_NAME): $(LIB_OBJ)
@@ -34,8 +33,7 @@ leak_check:
 	@valgrind --tool=memcheck --leak-check=yes ./test
 
 clean:
-	@rm -f $(LIB_OBJ) $(LIB_NAME) $(TEST_OBJ) test gcov* coverage.info *.gcda *.gcno tests/*.gcno
-	@rm -rf coverage_report
+	@rm -f $(LIB_OBJ) $(LIB_NAME) $(TEST_OBJ) test
 	@rm -rf .clang-format
 
 add_coverage:

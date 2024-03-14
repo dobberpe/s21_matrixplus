@@ -47,6 +47,7 @@ public:
     S21Matrix operator*(const double num) const;
     bool operator==(const S21Matrix& other) const;
     void operator=(const S21Matrix& other);
+    void operator=(const S21Matrix&& other);
     void operator+=(const S21Matrix& other);
     void operator-=(const S21Matrix& other);
     void operator*=(const S21Matrix& other);
