@@ -19,9 +19,6 @@ TEST(MulMatrixTest, MulMatrixCorrect) {
   B[3][0] = 12;
 
   A.MulMatrix(B);
-  printf("\nout\n");
-  printf("\n%f\n", A[0][0]);
-  printf("\n%f\n", A[1][0]);
 
   ASSERT_EQ(A[0][0], 110.0);
   ASSERT_EQ(A[1][0], 278.0);

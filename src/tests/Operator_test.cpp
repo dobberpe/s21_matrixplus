@@ -108,7 +108,7 @@ TEST(MatrixOperatorTest, Equality) {
   ASSERT_TRUE(A == B);
 }
 
-TEST(MatrixOperatorTest, Assignment) { // seg
+TEST(MatrixOperatorTest, Assignment) {
   S21Matrix A(2, 2);
   A[0][0] = 1;
   A[0][1] = 2;
@@ -123,10 +123,32 @@ TEST(MatrixOperatorTest, Assignment) { // seg
 
   A = B;
 
+  ASSERT_EQ(A[0][0], B[0][0]);
+  ASSERT_EQ(A[0][1], B[0][1]);
+  ASSERT_EQ(A[1][0], B[1][0]);
+  ASSERT_EQ(A[1][1], B[1][1]);
+}
+
+TEST(MatrixOperatorTest, MoveAssignment) {
+  S21Matrix A(2, 2);
+  A[0][0] = 1;
+  A[0][1] = 2;
+  A[1][0] = 3;
+  A[1][1] = 4;
+
+  S21Matrix B(2, 2);
+  B[0][0] = 5;
+  B[0][1] = 6;
+  B[1][0] = 7;
+  B[1][1] = 8;
+
+  A = move(B);
+
   ASSERT_EQ(A[0][0], 5);
   ASSERT_EQ(A[0][1], 6);
   ASSERT_EQ(A[1][0], 7);
   ASSERT_EQ(A[1][1], 8);
+  ASSERT_THROW(B[0], exception);
 }
 
 TEST(MatrixOperatorTest, AdditionAssignment) {
@@ -171,7 +193,7 @@ TEST(MatrixOperatorTest, SubtractionAssignment) {
   ASSERT_EQ(A[1][1], 4);
 }
 
-TEST(MatrixOperatorTest, MultiplicationAssignment) { // seg
+TEST(MatrixOperatorTest, MultiplicationAssignment) {
   S21Matrix A(2, 2);
   A[0][0] = 1;
   A[0][1] = 2;

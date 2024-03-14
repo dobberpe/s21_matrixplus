@@ -14,10 +14,10 @@ TEST(SubMatrixTest, SubMatrixCorrect) {
   B[1][0] = 7;
   B[1][1] = 8;
 
-  B.SubMatrix(A);
+  A.SubMatrix(B);
 
   ASSERT_EQ(A[0][0], -4.0);
-  ASSERT_EQ(A[0][1], -1.0);
+  ASSERT_EQ(A[0][1], -4.0);
   ASSERT_EQ(A[1][0], -4.0);
   ASSERT_EQ(A[1][1], -4.0);
 }
